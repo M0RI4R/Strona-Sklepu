@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Strona sklepu</title>
+  </head>
+  <body>
+    <header>
+      <section class="top-header">
+        <ul>
+          <li>
+            Need help? Call us:<a href="call:+48111111111">+48 111 111 111</a>
+          </li>
+          <ul class="track">
+            <li>
+              <a href="#"
+                ><i class="fa-sharp fa-solid fa-location-dot"></i>Our store</a
+              >
+            </li>
+            <li>
+              <a href="#"><i class="fa-solid fa-truck"></i>Track your order</a>
+            </li>
+          </ul>
+        </ul>
+      </section>
+      <section class="search">
+        <div class="search-left">
+          <a class="logo" href="index.html"
+            ><img alt="logo" href="#" src="./images/logo 1.svg"
+          /></a>
+          <div class="search-box">
+            <input type="search" placeholder="Search here" />
+            <button class="header-button" type="button">Search</button>
+          </div>
+        </div>
+        <ul class="sign-in">
+          <li>
+            <a href="#"><i class="fa-solid fa-user"></i>Sign in</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
+          </li>
+        </ul>
+      </section>
+      <section class="nav">
+        <div class="nav-left">
+          <button type="button" class="browse-button">
+            Browse categories
+            <span class="chevron"
+              ><i class="fa-solid fa-chevron-down"></i
+            ></span>
+          </button>
+          <nav>
+            <ul class="navigation">
+              <li>
+                <a href="#"
+                  >Home<span class="chevron"
+                    ><i class="fa-solid fa-chevron-down"></i></span
+                ></a>
+              </li>
+              <li>
+                <a href="#"
+                  >Catalog<span class="chevron"
+                    ><i class="fa-solid fa-chevron-down"></i></span
+                ></a>
+              </li>
+              <li><a href="#">Blog</a></li>
+              <li>
+                <a href="#"
+                  >Pages<span class="chevron"
+                    ><i class="fa-solid fa-chevron-down"></i></span
+                ></a>
+              </li>
+              <li><a href="#">About us</a></li>
+            </ul>
+          </nav>
+        </div>
+        <a class="info" href="#">30 Days Free Return</a>
+      </section>
+    </header>
+    <main>
+      <section class="product">
+        <div class="product-grid-left">
+          <img src="./images/6456332_sd 1.svg" />
+          <img src="./images/Frame 29 (1).svg" />
+          <img src="./images/Frame 29 (1).svg" />
+        </div>
+        <div class="product-description">
+          <ul>
+            <li class="product-description-item">
+              <ul>
+                <li><h2>Controler1</h2></li>
+                <li><p class="price">$200</p></li>
+                <li>
+                  <div class="ratio">
+                    <i class="fa-solid fa-star"></i
+                    ><i class="fa-solid fa-star"></i
+                    ><i class="fa-solid fa-star"></i
+                    ><i class="fa-solid fa-star"></i
+                    ><i class="fa-solid fa-star"></i>
+                  </div>
+                </li>
+                <li>
+                  <ul class="flex">
+                    <li><h3>Avallability :</h3></li>
+                    <li>
+                      <input type="checkbox" id="stock" />
+                      <label for="stock"> In stock</label>
+                    </li>
+                  </ul>
+                </li>
+                <li><p>Hurry up! Only 34 product left in stock</p></li>
+              </ul>
+            </li>
+            <li class="product-description-item">
+              <ul>
+                <li>
+                  <h3>color :</h3>
+                </li>
+
+                <li>
+                  <input type="checkbox" id="green" /><label
+                    for="green"
+                  ></label>
+                </li>
+                <li>
+                  <input type="checkbox" id="black" /><label
+                    for="black"
+                  ></label>
+                </li>
+              </ul>
+              <ul>
+                <li><h3>Size :</h3></li>
+                <li>
+                  <input type="checkbox" id="size30" />
+                  <label for="size30">30</label>
+                </li>
+                <li>
+                  <input type="checkbox" id="size42" />
+                  <label for="size42">42</label>
+                </li>
+                <li>
+                  <input type="checkbox" id="size48" />
+                  <label for="size48">48</label>
+                </li>
+                <li>
+                  <input type="checkbox" id="size56" />
+                  <label for="size56">56</label>
+                </li>
+              </ul>
+              <ul>
+                <li><h3>Quantity :</h3></li>
+                <li>
+                  <input type="checkbox" id="quantity" /><label for="quantity"
+                    >1</label
+                  >
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <button type="button" class="more-details-button">
+                    Add to cart
+                  </button>
+                  <button type="button" class="more-details-button">
+                    Buy it now
+                  </button>
+                  <input type="checkbox" class="add-to favourite" />
+                </li>
+              </ul>
+            </li>
+            <li class="product-description-item">
+              <ul>
+                <li><h3>Sku :</h3></li>
+                <li>0113-9-9</li>
+              </ul>
+              <ul>
+                <li><h3>Category :</h3></li>
+                <li>20% off</li>
+                <li>49% off</li>
+                <li>Alex remote</li>
+              </ul>
+              <ul>
+                <li><h3>Share :</h3></li>
+                <li>G</li>
+                <li>F</li>
+                <li>W</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="more-details">
+        <button type="button" class="more-details-button">Description</button>
+        <button type="button" class="more-details-button">Reviews</button>
+      </section>
+      <section class="customers-reviews">
+        <ul>
+          <li><h3>Customers Reviews</h3></li>
+          <li><p>No reviews yet</p></li>
+          <li>
+            <button type="button" class="reviews-button">Write a review</button>
+          </li>
+        </ul>
+      </section>
+      <section class="related-products">
+        <ul>
+          <li>
+            <a href="#">
+              <img alt="aparat" src="/images/Frame 29 (1).svg" />
+              <h3>Controler 1</h3>
+              <p>$200</p>
+              <div class="ratio">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i></div
+            ></a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="aparat" src="/images/Frame 29 (1).svg" />
+              <h3>Controler 1</h3>
+              <p>$200</p>
+              <div class="ratio">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i></div
+            ></a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="aparat" src="/images/Frame 29 (1).svg" />
+              <h3>Controler 1</h3>
+              <p>$200</p>
+              <div class="ratio">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i></div
+            ></a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="aparat" src="/images/Frame 29 (1).svg" />
+              <h3>Controler 1</h3>
+              <p>$200</p>
+              <div class="ratio">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i></div
+            ></a>
+          </li>
+        </ul>
+      </section>
+      <section class="discount">
+        <div></div>
+        <div class="text-on-background">
+          <a href="#"
+            ><button type="button" class="background-button">
+              New laptop
+            </button></a
+          >
+          <h2 class="background-header">Sale up to 50% off</h2>
+          <p class="background-paragraph">12 inch hd display</p>
+          <a href="#"
+            ><button type="button" class="background-button">
+              Shop now
+            </button></a
+          >
+        </div>
+      </section>
+    </main>
+    <footer>
+      <section class="subscribe-newsletter">
+        <ul>
+          <li><h2>Subscribe newsletter</h2></li>
+          <li>
+            <input type="email" placeholder="E-mail" required />
+            <button type="submit">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </li>
+          <li>
+            <ul class="contact">
+              <img src="./images/Vector.svg" />
+              <div>
+                <li>Call us 24/7:</li>
+                <li>
+                  <a href="call:+48111111111">+48111111111</a>
+                </li>
+              </div>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <section class="footer-information">
+        <ul class="about-company">
+          <li>
+            <a class="logo" href="index.html"
+              ><img alt="logo" href="#" src="./images/logo 1.svg"
+            /></a>
+          </li>
+          <li>
+            64 st james boulevard <br />
+            hoswick, ze2 7zj
+          </li>
+          <ul class="social-media">
+            <li class="instagram">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </li>
+            <li class="twitter">
+              <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </li>
+            <li class="whatsup">
+              <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            </li>
+          </ul>
+        </ul>
+        <ul>
+          <h3>Find product</h3>
+          <li><a href="#">Brownze arnold</a></li>
+          <li><a href="#">Chronograph blue</a></li>
+          <li><a href="#">Smartphones</a></li>
+          <li><a href="#">Automatic Watch</a></li>
+          <li><a href="#">Hair Straighteners</a></li>
+        </ul>
+        <ul>
+          <h3>Get Help</h3>
+          <li><a href="#">About us</a></li>
+          <li><a href="#">Contact us</a></li>
+          <li><a href="#">Return policy</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Payment policy</a></li>
+        </ul>
+        <ul>
+          <h3>About us</h3>
+          <li><a href="#">news</a></li>
+          <li><a href="#">Service</a></li>
+          <li><a href="#">Our policy</a></li>
+          <li><a href="#">Coustomer care</a></li>
+          <li><a href="#">Faq's</a></li>
+        </ul>
+      </section>
+    </footer>
+  </body>
+</html>
