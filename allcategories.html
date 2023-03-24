@@ -24,7 +24,7 @@
     <header>
       <section class="top-header">
         <ul>
-          <li>
+          <li class="telephone">
             Need help? Call us:<a href="call:+48111111111">+48 111 111 111</a>
           </li>
           <ul class="track">
@@ -42,7 +42,7 @@
       <section class="search">
         <div class="search-left">
           <a class="logo" href="index.html"
-            ><img alt="logo" href="#" src="./images/logo 1.svg"
+            ><img alt="logo" href="#" src="images/logo 1.svg"
           /></a>
           <div class="search-box">
             <input type="search" placeholder="Search here" />
@@ -51,41 +51,67 @@
         </div>
         <ul class="sign-in">
           <li>
-            <a href="#"><i class="fa-solid fa-user"></i>Sign in</a>
+            <a href="#"
+              ><i class="fa-solid fa-user sign-in-icon"></i
+              ><span class="sign-in-description">Sign in</span></a
+            >
           </li>
           <li>
-            <a href="#"><i class="fa-solid fa-cart-shopping"></i>Cart</a>
+            <a href="cart.html"
+              ><i class="fa-solid fa-cart-shopping sign-in-icon"></i
+              ><span class="sign-in-description">Cart</span></a
+            >
+          </li>
+          <li>
+            <button class="burger">
+              <i class="fa-solid fa-bars"></i>
+              <i class="fa-solid fa-xmark x-mark"></i>
+            </button>
           </li>
         </ul>
       </section>
+      <div class="search-box-visible display-none">
+        <input type="search" placeholder="Search here" />
+        <button class="header-button" type="button">Search</button>
+      </div>
       <section class="nav">
         <div class="nav-left">
-          <button type="button" class="browse-button">
-            Browse categories
-            <span class="chevron"
-              ><i class="fa-solid fa-chevron-down"></i
-            ></span>
-          </button>
+          <div class="dropdown">
+            <button type="button" class="browse-button">
+              Browse categories
+              <span class="chevron"
+                ><i class="fa-solid fa-chevron-down"></i
+              ></span>
+            </button>
+            <div class="dropdown-menu">
+              <a href="">All categories</a>
+              <a href="">Tablet</a>
+              <a href="">Laptop</a>
+              <a href="">Headphones</a>
+              <a href="">Console</a>
+              <a href="">Speaker</a>
+            </div>
+          </div>
           <nav>
             <ul class="navigation">
               <li>
-                <a href="#"
-                  >Home<span class="chevron"
+                <a href="#">Home</a>
+                <!-- <span class="chevron"
                     ><i class="fa-solid fa-chevron-down"></i></span
-                ></a>
+                > -->
               </li>
               <li>
-                <a href="#"
-                  >Catalog<span class="chevron"
+                <a href="#">Outlet</a>
+                <!-- <span class="chevron"
                     ><i class="fa-solid fa-chevron-down"></i></span
-                ></a>
+                > -->
               </li>
               <li><a href="#">Blog</a></li>
               <li>
-                <a href="#"
-                  >Pages<span class="chevron"
+                <a href="#">Special offer</a>
+                <!-- <span class="chevron"
                     ><i class="fa-solid fa-chevron-down"></i></span
-                ></a>
+                > -->
               </li>
               <li><a href="#">About us</a></li>
             </ul>
@@ -252,7 +278,7 @@
               <a href="#">
                 <img
                   alt="aparat"
-                  src="/images/camera 1.svg"
+                  src="images/camera 1.svg"
                   width="283px"
                   height="169px" />
                 <h3>camera 1</h3>
@@ -267,7 +293,7 @@
             </li>
             <li>
               <a href="#">
-                <img alt="aparat" src="/images/Frame 29 (1).svg" />
+                <img alt="aparat" src="images/Frame 29 (1).svg" />
                 <h3>Controler 1</h3>
                 <p>$200</p>
                 <div class="ratio">
@@ -280,7 +306,7 @@
             </li>
             <li>
               <a href="#">
-                <img alt="aparat" src="/images/Frame 29 (2).svg" />
+                <img alt="aparat" src="images/Frame 29 (2).svg" />
                 <h3>Laptop 1</h3>
                 <p>$200</p>
                 <div class="ratio">
@@ -293,7 +319,7 @@
             </li>
             <li>
               <a href="#">
-                <img alt="aparat" src="/images/Frame 29.svg" />
+                <img alt="aparat" src="images/Frame 29.svg" />
                 <h3>Headphones 1</h3>
                 <p>$200</p>
                 <div class="ratio">
@@ -306,7 +332,7 @@
             </li>
             <li>
               <a href="#">
-                <img alt="aparat" src="/images/Frame 29 (1).svg" />
+                <img alt="aparat" src="images/Frame 29 (1).svg" />
                 <h3>Controler 1</h3>
                 <p>$200</p>
                 <div class="ratio">
@@ -319,7 +345,7 @@
             </li>
             <li>
               <a href="#">
-                <img alt="aparat" src="/images/Frame 29 (2).svg" />
+                <img alt="aparat" src="images/Frame 29 (2).svg" />
                 <h3>Laptop 2</h3>
                 <p>$200</p>
                 <div class="ratio">
@@ -332,7 +358,7 @@
             </li>
             <li>
               <a href="#">
-                <img alt="aparat" src="/images/Frame 29.svg" />
+                <img alt="aparat" src="images/Frame 29.svg" />
                 <h3>Headphones 2</h3>
                 <p>$200</p>
                 <div class="ratio">
@@ -345,7 +371,7 @@
             </li>
             <li>
               <a href="#">
-                <img alt="aparat" src="/images/Frame 29 (2).svg" />
+                <img alt="aparat" src="images/Frame 29 (2).svg" />
                 <h3>Laptop 3</h3>
                 <p>$200</p>
                 <div class="ratio">
@@ -360,7 +386,7 @@
               <a href="#">
                 <img
                   alt="aparat"
-                  src="/images/camera 1.svg"
+                  src="images/camera 1.svg"
                   width="283px"
                   height="169px" />
                 <h3>camera 2</h3>
@@ -377,7 +403,7 @@
               <a href="#">
                 <img
                   alt="aparat"
-                  src="/images/camera 1.svg"
+                  src="images/camera 1.svg"
                   width="283px"
                   height="169px" />
                 <h3>camera 2</h3>
@@ -394,7 +420,7 @@
               <a href="#">
                 <img
                   alt="aparat"
-                  src="/images/camera 1.svg"
+                  src="images/camera 1.svg"
                   width="283px"
                   height="169px" />
                 <h3>camera 2</h3>
@@ -411,7 +437,7 @@
               <a href="#">
                 <img
                   alt="aparat"
-                  src="/images/camera 1.svg"
+                  src="images/camera 1.svg"
                   width="283px"
                   height="169px" />
                 <h3>camera 2</h3>
