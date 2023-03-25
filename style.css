@@ -1050,6 +1050,13 @@ form > * {
 form div {
   position: relative;
 }
+.form-email-popup {
+  display: none;
+}
+
+.change-form {
+  cursor: pointer;
+}
 
 .btn-submit {
   background-color: var(--button-color);

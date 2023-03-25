@@ -121,11 +121,11 @@
       </section>
     </header>
     <section class="sign-in-form">
-      <form>
+      <form method="GET">
         <button class="close-form" type="button">
           <i class="fa-solid fa-xmark"></i>
         </button>
-        <h2>Sign in</h2>
+        <h2 class="header-popup">Sign in</h2>
         <div>
           <label class="form-label" for="name"
             ><i class="fa-solid fa-user"></i
@@ -152,12 +152,25 @@
             required
           />
         </div>
+        <div class="form-email-popup">
+          <label class="form-label" for="mail"
+            ><i class="fa-solid fa-envelope"></i
+          ></label>
+          <input
+            class="form-input mail-input"
+            name="mail"
+            id="mail"
+            type="email"
+            placeholder="email"
+          />
+        </div>
         <div class="btn-submit-conteiner">
           <button class="btn-submit" type="submit">Sign in</button>
         </div>
-        <p>Not a member? <a href="">Register now</a></p>
+        <p class="change-form">Not a member? Register now</p>
       </form>
     </section>
+
     <main>
       <section class="slider">
         <div class="slider-flex">
