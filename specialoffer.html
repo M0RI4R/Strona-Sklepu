@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Strona sklepu</title>
+  </head>
+  <body>
+    <header>
+      <section class="top-header">
+        <ul>
+          <li class="telephone">
+            Need help? Call us:<a href="call:+48111111111">+48 111 111 111</a>
+          </li>
+          <ul class="track">
+            <li>
+              <a href="#"
+                ><i class="fa-sharp fa-solid fa-location-dot"></i>Our store</a
+              >
+            </li>
+            <li>
+              <a href="#"><i class="fa-solid fa-truck"></i>Track your order</a>
+            </li>
+          </ul>
+        </ul>
+      </section>
+      <section class="search">
+        <div class="search-left">
+          <a class="logo" href="index.html"
+            ><img alt="logo" href="#" src="images/logo 1.svg"
+          /></a>
+          <div class="search-box">
+            <input type="search" placeholder="Search here" />
+            <button class="header-button" type="button">Search</button>
+          </div>
+        </div>
+        <ul class="sign-in">
+          <li>
+            <a href="#"
+              ><i class="fa-solid fa-user sign-in-icon"></i
+              ><span class="sign-in-description">Sign in</span></a
+            >
+          </li>
+          <li>
+            <a href="cart.html"
+              ><i class="fa-solid fa-cart-shopping sign-in-icon"
+                ><span class="number-of-items">0</span></i
+              ><span class="sign-in-description">Cart</span></a
+            >
+          </li>
+          <li>
+            <button class="burger">
+              <i class="fa-solid fa-bars"></i>
+              <i class="fa-solid fa-xmark x-mark"></i>
+            </button>
+          </li>
+        </ul>
+      </section>
+      <div class="search-box-visible display-none">
+        <input type="search" placeholder="Search here" />
+        <button class="header-button" type="button">Search</button>
+      </div>
+      <section class="nav">
+        <div class="nav-left">
+          <div class="dropdown">
+            <button type="button" class="browse-button">
+              Browse categories
+              <span class="chevron"
+                ><i class="fa-solid fa-chevron-down"></i
+              ></span>
+            </button>
+            <div class="dropdown-menu">
+              <a href="allcategories.html">All categories</a>
+              <a href="index.html">Tablet</a>
+              <a href="">Laptop</a>
+              <a href="">Headphones</a>
+              <a href="">Console</a>
+              <a href="">Speaker</a>
+            </div>
+          </div>
+          <nav>
+            <ul class="navigation">
+              <li>
+                <a href="index.html">Home</a>
+                <!-- <span class="chevron"
+                    ><i class="fa-solid fa-chevron-down"></i></span
+                > -->
+              </li>
+              <li>
+                <a href="outlet.html">Outlet</a>
+                <!-- <span class="chevron"
+                    ><i class="fa-solid fa-chevron-down"></i></span
+                > -->
+              </li>
+              <li><a href="blog.html">Blog</a></li>
+              <li>
+                <a href="specialoffer.html">Special offer</a>
+                <!-- <span class="chevron"
+                    ><i class="fa-solid fa-chevron-down"></i></span
+                > -->
+              </li>
+              <li><a href="aboutUs.html">About us</a></li>
+            </ul>
+          </nav>
+        </div>
+        <a class="info" href="freeReturn.html">30 Days Free Return</a>
+      </section>
+    </header>
+    <section class="sign-in-form">
+      <form method="GET">
+        <button class="close-form" type="button">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <h2 class="header-popup">Sign in</h2>
+        <div>
+          <label class="form-label" for="name"
+            ><i class="fa-solid fa-user"></i
+          ></label>
+          <input
+            class="form-input"
+            name="name"
+            id="name"
+            type="text"
+            placeholder="User name"
+            required
+          />
+        </div>
+        <div>
+          <label class="form-label" for="password"
+            ><i class="fa-solid fa-key"></i
+          ></label>
+          <input
+            class="form-input"
+            name="password"
+            id="password"
+            type="password"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <div class="form-email-popup">
+          <label class="form-label" for="mail"
+            ><i class="fa-solid fa-envelope"></i
+          ></label>
+          <input
+            class="form-input mail-input"
+            name="mail"
+            id="mail"
+            type="email"
+            placeholder="email"
+          />
+        </div>
+        <div class="btn-submit-conteiner">
+          <button class="btn-submit" type="submit">Sign in</button>
+        </div>
+        <p class="change-form">Not a member? Register now</p>
+      </form>
+    </section>
+
+    <footer>
+      <section class="subscribe-newsletter">
+        <ul>
+          <li><h2>Subscribe newsletter</h2></li>
+          <li>
+            <input type="email" placeholder="E-mail" required />
+            <button type="submit">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </li>
+          <li>
+            <ul class="contact">
+              <img src="images/Vector.svg" />
+              <div>
+                <li>Call us 24/7:</li>
+                <li>
+                  <a href="call:+48111111111">+48111111111</a>
+                </li>
+              </div>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <section class="footer-information">
+        <ul class="about-company">
+          <li>
+            <a class="logo" href="index.html"
+              ><img alt="logo" href="#" src="images/logo 1.svg"
+            /></a>
+          </li>
+          <li>
+            64 st james boulevard <br />
+            hoswick, ze2 7zj
+          </li>
+          <ul class="social-media">
+            <li class="instagram">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </li>
+            <li class="twitter">
+              <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </li>
+            <li class="whatsup">
+              <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            </li>
+          </ul>
+        </ul>
+        <ul>
+          <h3>Find product</h3>
+          <li><a href="#">Brownze arnold</a></li>
+          <li><a href="#">Chronograph blue</a></li>
+          <li><a href="#">Smartphones</a></li>
+          <li><a href="#">Automatic Watch</a></li>
+          <li><a href="#">Hair Straighteners</a></li>
+        </ul>
+        <ul>
+          <h3>Get Help</h3>
+          <li><a href="#">About us</a></li>
+          <li><a href="#">Contact us</a></li>
+          <li><a href="#">Return policy</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Payment policy</a></li>
+        </ul>
+        <ul>
+          <h3>About us</h3>
+          <li><a href="#">news</a></li>
+          <li><a href="#">Service</a></li>
+          <li><a href="#">Our policy</a></li>
+          <li><a href="#">Coustomer care</a></li>
+          <li><a href="#">Faq's</a></li>
+        </ul>
+      </section>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
