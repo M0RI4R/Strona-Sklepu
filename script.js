@@ -4,6 +4,7 @@ let submitPopup = document.querySelector(".btn-submit");
 const btnColeForm = document.querySelector(".close-form");
 const btnBrowseCat = document.querySelector(".browse-button");
 const changeForm = document.querySelector(".change-form");
+let addToCartBtn = document.querySelectorAll(".add-to-cart");
 
 //-------------------------ICONS--------------------------------
 const barsIcon = document.querySelector(".fa-bars");
@@ -11,6 +12,7 @@ const xmark = document.querySelector(".x-mark");
 const userBtn = document.querySelector(".fa-user");
 let headerPopup = document.querySelector(".header-popup");
 const emailFormInput = document.querySelector(".mail-input");
+let itemNumber = document.querySelector(".number-of-items");
 
 //---------------------------CONTEINERS-------------------------
 const navConteiner = document.querySelector("nav");
@@ -58,6 +60,39 @@ const changeFormSign = () => {
     changeForm.textContent = "Are you not a member? Sign up";
   }
 };
+//------------------------------------------ADDING-TO-CART-NUMBER-OF-PRODUCTS-----------------
+let product = [
+  {
+    name: "Camera",
+    tag: "camera",
+    price: 300,
+    inCart: 0,
+  },
+];
+for (let i = 0; i < addToCartBtn.length; i++) {
+  addToCartBtn[i].addEventListener("click", () => {
+    console.log("added to cart");
+    cartNumbers();
+  });
+}
+function onLoadCartNumbers() {
+  let productNumbers = localStorage.getItem("cartNumbers");
+  if (productNumbers) {
+    itemNumber.textContent = productNumbers;
+  }
+}
+function cartNumbers() {
+  let productNumbers = localStorage.getItem("cartNumbers");
+  productNumbers = parseInt(productNumbers);
+  if (productNumbers) {
+    localStorage.setItem("cartNumbers", productNumbers + 1);
+    itemNumber.textContent = productNumbers + 1;
+  } else {
+    localStorage.setItem("cartNumbers", 1);
+    itemNumber.textContent = 1;
+  }
+}
+onLoadCartNumbers();
 
 //----------------------------ADD-EVENT-LISTENERS----------------
 burger.addEventListener("click", menu);

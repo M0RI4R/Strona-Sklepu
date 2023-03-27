@@ -20,6 +20,9 @@ body * {
   text-decoration: none;
   color: black;
 }
+h1 {
+  font-size: 50px;
+}
 .top-header {
   margin-top: 24px;
   margin-bottom: 24px;
@@ -90,6 +93,22 @@ body * {
 }
 .sign-in li a i {
   padding-right: 5px;
+}
+.sign-in-icon {
+  position: relative;
+}
+.number-of-items {
+  font-size: 12px;
+  background-color: var(--button-color);
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  top: -140%;
+  right: -50%;
 }
 .burger {
   font-size: 35px;
@@ -245,7 +264,26 @@ body * {
 .categories a {
   padding: 10px;
 }
-
+.add-to-cart {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--button-color);
+  cursor: pointer;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+.add-to-cart:hover {
+  background-color: var(--hover-color);
+}
+.add-to-cart:active {
+  background-color: var(--active-color);
+}
 .button-categories:not(:last-child) {
   margin-right: 1px;
 }
@@ -265,6 +303,7 @@ body * {
   color: white;
   border: none;
 }
+
 .button-categories:active {
   background-color: var(--active-color);
 }
@@ -282,6 +321,7 @@ body * {
   border: 1px solid var(--border-color);
   padding: 22px 13px;
   border-radius: 20px;
+  position: relative;
 }
 .rating-products ul li:hover {
   border-color: var(--hover-color);
@@ -1094,6 +1134,53 @@ form div {
   cursor: pointer;
   color: rgb(19, 15, 15);
 }
+/* -------------------------------------------------BLOG------------------------------------ */
+
+.blog__conteiner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 30px;
+}
+.blog__item {
+  display: flex;
+  padding: 0px 16px 20px 16px;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.blog__conteiner img {
+  width: 45%;
+  height: 300px;
+  object-fit: cover;
+}
+.blog__article {
+  width: 50%;
+}
+.blog__paragraph,
+.blog__header {
+  margin-bottom: 20px;
+}
+.blog__ancore {
+  position: relative;
+  cursor: pointer;
+}
+.blog__ancore::after {
+  position: absolute;
+  content: "";
+  width: 50px;
+  height: 2px;
+  background-color: black;
+  top: 50%;
+  left: 120%;
+  transform: translateY(-50%);
+}
+
+/* ----------------------------------------About-Us---------------------- */
+.blog__location {
+  width: 44%;
+}
 
 @media (max-width: 1033px) {
   .discount {
@@ -1187,6 +1274,13 @@ form div {
   }
   .navigation {
     margin-left: 20px;
+  }
+  .blog__article,
+  .blog__conteiner img {
+    width: 100%;
+  }
+  .blog__location {
+    width: 100%;
   }
 }
 @media (max-width: 537px) {

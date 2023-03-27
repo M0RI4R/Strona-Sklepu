@@ -58,7 +58,8 @@
           </li>
           <li>
             <a href="cart.html"
-              ><i class="fa-solid fa-cart-shopping sign-in-icon"></i
+              ><i class="fa-solid fa-cart-shopping sign-in-icon"
+                ><span class="number-of-items">0</span></i
               ><span class="sign-in-description">Cart</span></a
             >
           </li>
@@ -84,8 +85,8 @@
               ></span>
             </button>
             <div class="dropdown-menu">
-              <a href="">All categories</a>
-              <a href="">Tablet</a>
+              <a href="allcategories.html">All categories</a>
+              <a href="index.html">Tablet</a>
               <a href="">Laptop</a>
               <a href="">Headphones</a>
               <a href="">Console</a>
@@ -95,31 +96,81 @@
           <nav>
             <ul class="navigation">
               <li>
-                <a href="#">Home</a>
+                <a href="index.html">Home</a>
                 <!-- <span class="chevron"
                     ><i class="fa-solid fa-chevron-down"></i></span
                 > -->
               </li>
               <li>
-                <a href="#">Outlet</a>
+                <a href="outlet.html">Outlet</a>
                 <!-- <span class="chevron"
                     ><i class="fa-solid fa-chevron-down"></i></span
                 > -->
               </li>
-              <li><a href="#">Blog</a></li>
+              <li><a href="blog.html">Blog</a></li>
               <li>
-                <a href="#">Special offer</a>
+                <a href="specialOffer.html">Special offer</a>
                 <!-- <span class="chevron"
                     ><i class="fa-solid fa-chevron-down"></i></span
                 > -->
               </li>
-              <li><a href="#">About us</a></li>
+              <li><a href="aboutUs.html">About us</a></li>
             </ul>
           </nav>
         </div>
         <a class="info" href="#">30 Days Free Return</a>
       </section>
     </header>
+    <section class="sign-in-form">
+      <form method="GET">
+        <button class="close-form" type="button">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <h2 class="header-popup">Sign in</h2>
+        <div>
+          <label class="form-label" for="name"
+            ><i class="fa-solid fa-user"></i
+          ></label>
+          <input
+            class="form-input"
+            name="name"
+            id="name"
+            type="text"
+            placeholder="User name"
+            required
+          />
+        </div>
+        <div>
+          <label class="form-label" for="password"
+            ><i class="fa-solid fa-key"></i
+          ></label>
+          <input
+            class="form-input"
+            name="password"
+            id="password"
+            type="password"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <div class="form-email-popup">
+          <label class="form-label" for="mail"
+            ><i class="fa-solid fa-envelope"></i
+          ></label>
+          <input
+            class="form-input mail-input"
+            name="mail"
+            id="mail"
+            type="email"
+            placeholder="email"
+          />
+        </div>
+        <div class="btn-submit-conteiner">
+          <button class="btn-submit" type="submit">Sign in</button>
+        </div>
+        <p class="change-form">Not a member? Register now</p>
+      </form>
+    </section>
     <main>
       <section class="product">
         <div class="product-grid-left">
@@ -382,5 +433,6 @@
         </ul>
       </section>
     </footer>
+    <script src="script.js"></script>
   </body>
 </html>
