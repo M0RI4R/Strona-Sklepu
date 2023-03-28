@@ -5,6 +5,8 @@ const btnColeForm = document.querySelector(".close-form");
 const btnBrowseCat = document.querySelector(".browse-button");
 const changeForm = document.querySelector(".change-form");
 let addToCartBtn = document.querySelectorAll(".add-to-cart");
+const increaseBtn = document.querySelector(".increase-btn");
+const decreaseBtn = document.querySelector(".decrease-btn");
 
 //-------------------------ICONS--------------------------------
 const barsIcon = document.querySelector(".fa-bars");
@@ -20,6 +22,9 @@ const signInPopup = document.querySelector(".sign-in-form");
 const formEmailPopup = document.querySelector(".form-email-popup");
 const body = document.querySelector("body");
 const dropDownMenu = document.querySelector(".dropdown-menu");
+
+//----------------------------INPUTS--------------------------------
+const quantityInput = document.querySelector(".quantity-input");
 
 //---------------------------FUNCTIONS--------------------------
 
@@ -94,6 +99,17 @@ function cartNumbers() {
 }
 onLoadCartNumbers();
 
+//-----------------------------INCREASE/DECREASE-ITEM-NUMBER-----------------------
+const increase = () => {
+  quantityInput.valueAsNumber += 1;
+};
+const decrease = () => {
+  if (quantityInput.valueAsNumber == 1) {
+    return;
+  } else {
+    quantityInput.valueAsNumber -= 1;
+  }
+};
 //----------------------------ADD-EVENT-LISTENERS----------------
 burger.addEventListener("click", menu);
 userBtn.addEventListener("click", loginPopup);
@@ -101,3 +117,5 @@ submitPopup.addEventListener("submit", submitForm);
 btnColeForm.addEventListener("click", close);
 btnBrowseCat.addEventListener("click", categoriesList);
 changeForm.addEventListener("click", changeFormSign);
+increaseBtn.addEventListener("click", increase);
+decreaseBtn.addEventListener("click", decrease);

@@ -197,8 +197,8 @@
                   <ul class="flex">
                     <li><h3>Avallability :</h3></li>
                     <li>
-                      <input type="checkbox" id="stock" />
-                      <label for="stock"> In stock</label>
+                      <i class="fa-solid fa-check color-available"></i>
+                      <span class="color-available">In stock</span>
                     </li>
                   </ul>
                 </li>
@@ -212,41 +212,75 @@
                 </li>
 
                 <li>
-                  <input type="checkbox" id="green" /><label
-                    for="green"
-                  ></label>
+                  <input
+                    class="item-color-yellow"
+                    type="radio"
+                    name="color"
+                    id="yellow"
+                  />
+                  <label class="yellow" for="yellow"></label>
                 </li>
                 <li>
-                  <input type="checkbox" id="black" /><label
-                    for="black"
-                  ></label>
+                  <input
+                    class="item-color-black"
+                    type="radio"
+                    name="color"
+                    id="black"
+                  /><label for="black" class="black"></label>
                 </li>
               </ul>
-              <ul>
+              <ul class="size-conteiner">
                 <li><h3>Size :</h3></li>
                 <li>
-                  <input type="checkbox" id="size30" />
-                  <label for="size30">30</label>
+                  <input
+                    class="chose-size-input"
+                    name="size"
+                    type="radio"
+                    id="size30"
+                  />
+                  <label class="chose-size-label" for="size30">30</label>
                 </li>
                 <li>
-                  <input type="checkbox" id="size42" />
-                  <label for="size42">42</label>
+                  <input
+                    class="chose-size-input"
+                    name="size"
+                    type="radio"
+                    id="size42"
+                  />
+                  <label class="chose-size-label" for="size42">42</label>
                 </li>
                 <li>
-                  <input type="checkbox" id="size48" />
-                  <label for="size48">48</label>
+                  <input
+                    class="chose-size-input"
+                    name="size"
+                    type="radio"
+                    id="size48"
+                  />
+                  <label class="chose-size-label" for="size48">48</label>
                 </li>
                 <li>
-                  <input type="checkbox" id="size56" />
-                  <label for="size56">56</label>
+                  <input
+                    class="chose-size-input"
+                    name="size"
+                    type="radio"
+                    id="size56"
+                  />
+                  <label class="chose-size-label" for="size56">56</label>
                 </li>
               </ul>
               <ul>
                 <li><h3>Quantity :</h3></li>
                 <li>
-                  <input type="checkbox" id="quantity" /><label for="quantity"
-                    >1</label
-                  >
+                  <button class="decrease-btn" type="button">-</button>
+                  <input
+                    class="quantity-input"
+                    type="number"
+                    id="quantity"
+                    value="1"
+                    min="1"
+                    max="99"
+                  />
+                  <button class="increase-btn" type="button">+</button>
                 </li>
               </ul>
               <ul>
@@ -267,7 +301,7 @@
                 <li>0113-9-9</li>
               </ul>
               <ul>
-                <li><h3>Category :</h3></li>
+                <li><h3>Category:</h3></li>
                 <li>20% off</li>
                 <li>49% off</li>
                 <li>Alex remote</li>
