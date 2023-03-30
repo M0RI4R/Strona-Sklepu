@@ -973,7 +973,7 @@ input {
 .related-products ul li:hover {
   border-color: var(--button-color);
 }
-/* Cart */
+/* ----------------------------------------------------Cart -------------------------------*/
 
 .cart {
   display: grid;
@@ -1013,7 +1013,6 @@ tbody tr:nth-child(2) td {
   flex-wrap: wrap;
 }
 .cart-info img {
-  width: 50%;
   height: auto;
   margin-right: 10px;
 }
