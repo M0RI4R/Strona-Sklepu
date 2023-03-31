@@ -176,6 +176,7 @@ function onLoadCartNumbers() {
 function cartNumbers(product) {
   let productNumbers = localStorage.getItem("cartNumbers");
   productNumbers = parseInt(productNumbers);
+
   if (productNumbers) {
     localStorage.setItem("cartNumbers", productNumbers + 1);
     itemNumber.textContent = productNumbers + 1;
@@ -266,6 +267,7 @@ let quantityInput = document.querySelectorAll(".quantity-input");
 const cartItemsList = document.querySelectorAll(".cart-items-list");
 let subtotalOneItem = document.querySelectorAll(".subtotal-one-item");
 let itemPrice = document.querySelectorAll("#item-price");
+let sum = 1;
 
 for (let i = 0; i < increaseBtn.length; i++) {
   increaseBtn[i].addEventListener("click", () => {
@@ -276,76 +278,99 @@ for (let i = 0; i < increaseBtn.length; i++) {
   });
   decreaseBtn[i].addEventListener("click", () => {
     decrease(quantityInput[i]);
-    totalCostDecrease(shopItemsData[i]);
-    cartNumbersDecrease(shopItemsData[i]);
+    totalCostDecrease(shopItemsData[i], cartItemsList);
+    cartNumbersDecrease(shopItemsData[i], cartItemsList);
     subtotal(subtotalOneItem[i], quantityInput[i], itemPrice[i]);
   });
 }
 
 let increase = (quantityInput) => {
   quantityInput.valueAsNumber += 1;
+  checkInputsValue();
 };
 let decrease = (quantityInput) => {
   if (quantityInput.valueAsNumber == 1) {
     return;
   } else {
     quantityInput.valueAsNumber -= 1;
+    checkInputsValue();
   }
 };
+function checkInputsValue() {
+  let quantityInputsValue = [];
+  for (let i = 0; i < quantityInput.length; i++) {
+    quantityInputsValue.push(quantityInput[i].valueAsNumber);
+  }
+  sum = quantityInputsValue.reduce(function (a, b) {
+    return a + b;
+  });
+}
 function subtotal(subtotalOneItem, quantityInput, itemPrice) {
   quantityInput.value = parseInt(quantityInput.value);
-  itemPrice.value = parseInt(itemPrice.value);
-  subtotalOneItem.textContent = `${quantityInput.value + itemPrice.value}`;
-  // let cartItems = localStorage.getItem("productsInCart");
-  // cartItems = JSON.parse(cartItems);
-  // console.log(cartItems);
-  // Object.values(cartItems).forEach((item) => {
-  //   subtotalOneItem = `$ ${item.price * item.inCart}`;
-  // });
-  // console.log(subtotalOneItem);
-  console.log(subtotalOneItem.textContent);
-  console.log(quantityInput.value);
-  console.log(typeof itemPrice.value);
+  itemPrice.textContent = parseInt(itemPrice.textContent);
+  subtotalOneItem.textContent = `$ ${
+    quantityInput.value * itemPrice.textContent
+  }`;
 }
-function totalCostDecrease(product) {
+
+// ---------------------------------------------INCREASE--------------
+
+// --------------------------------------------------DECREASE-----------------
+
+function totalCostDecrease(product, cartItemsList) {
+  let productNumbers = localStorage.getItem("cartNumbers");
+  productNumbers = parseInt(productNumbers);
+  let cartCost = localStorage.getItem("totalCost");
+  let cartItems = localStorage.getItem("productsInCart");
+  cartItems = JSON.parse(cartItems);
+
+  if (
+    productNumbers == cartItemsList.length ||
+    cartItems[product.id].inCart == 1
+  ) {
+    return;
+  } else if (cartCost != null) {
+    cartCost = parseInt(cartCost);
+    localStorage.setItem("totalCost", cartCost - parseInt(product.price));
+  }
+}
+
+function cartNumbersDecrease(product, cartItemsList) {
   let productNumbers = localStorage.getItem("cartNumbers");
   productNumbers = parseInt(productNumbers);
 
-  if (productNumbers <= cartItemsList.length) {
-    return;
-  } else {
-    let cartCost = localStorage.getItem("totalCost");
+  console.log(productNumbers);
+  console.log(sum);
 
-    if (cartCost != null) {
-      cartCost = parseInt(cartCost);
-      localStorage.setItem("totalCost", cartCost - parseInt(product.price));
-    } else {
-      localStorage.setItem("totalCost", product.price);
-    }
-  }
-}
-function cartNumbersDecrease(product) {
-  let productNumbers = localStorage.getItem("cartNumbers");
-  productNumbers = parseInt(productNumbers);
-  if (productNumbers == cartItemsList.length) {
+  if (productNumbers == cartItemsList.length || productNumbers <= sum) {
     return;
-  } else {
-    if (productNumbers) {
-      localStorage.setItem("cartNumbers", productNumbers - 1);
-      itemNumber.textContent = productNumbers - 1;
-    }
-    setItemsDecrease(product);
+  } else if (productNumbers) {
+    localStorage.setItem("cartNumbers", productNumbers - 1);
+    itemNumber.textContent = productNumbers - 1;
   }
+
+  setItemsDecrease(product);
 }
+
 function setItemsDecrease(product) {
   let cartItems = localStorage.getItem("productsInCart");
   cartItems = JSON.parse(cartItems);
 
-  cartItems[product.id].inCart -= 1;
-
-  localStorage.setItem("productsInCart", JSON.stringify(cartItems));
+  if (cartItems[product.id].inCart == 1) {
+    return;
+  } else {
+    if (cartItems != null) {
+      if (cartItems[product.id] == undefined) {
+        cartItems = {
+          ...cartItems,
+          [product.id]: product,
+        };
+      }
+      cartItems[product.id].inCart -= 1;
+    }
+    localStorage.setItem("productsInCart", JSON.stringify(cartItems));
+  }
 }
-
 //----------------------------ADD-EVENT-LISTENERS----------------
 burger.addEventListener("click", menu);
 userBtn.addEventListener("click", loginPopup);
