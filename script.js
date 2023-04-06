@@ -20,8 +20,17 @@ const formEmailPopup = document.querySelector(".form-email-popup");
 const body = document.querySelector("body");
 const dropDownMenu = document.querySelector(".dropdown-menu");
 let shopItemsConteiner = document.querySelector("#shop-items");
+const slider1 = document.querySelector(".slider");
+const slider2 = document.querySelector(".slider2");
 
 //----------------------------INPUTS--------------------------------
+
+//--------------------------------------------CAROUSEL-FIRST-PAGE--------------
+function nextSlide() {
+  slider1.classList.toggle("active");
+  slider2.classList.toggle("active");
+}
+setInterval(nextSlide, 7000);
 
 //----------------------------SHOP-ITEMS-DATA----------------------
 
