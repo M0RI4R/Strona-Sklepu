@@ -30,8 +30,9 @@ function nextSlide() {
   slider1.classList.toggle("active");
   slider2.classList.toggle("active");
 }
-setInterval(nextSlide, 7000);
-
+if (slider1) {
+  setInterval(nextSlide, 7000);
+}
 //----------------------------SHOP-ITEMS-DATA----------------------
 
 let shopItemsData = [
