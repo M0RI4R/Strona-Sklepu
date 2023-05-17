@@ -45,8 +45,12 @@
             ><img alt="logo" href="#" src="images/logo 1.svg"
           /></a>
           <div class="search-box">
-            <input type="search" placeholder="Search here" />
-            <button class="header-button" type="button">Search</button>
+            <input
+              class="search-store"
+              type="search"
+              placeholder="Search here"
+            />
+            <a href="#poroducts-section" class="header-button">Search</a>
           </div>
         </div>
         <ul class="sign-in">
@@ -72,7 +76,7 @@
         </ul>
       </section>
       <div class="search-box-visible display-none">
-        <input type="search" placeholder="Search here" />
+        <input class="search-store" type="search" placeholder="Search here" />
         <button class="header-button" type="button">Search</button>
       </div>
       <section class="nav">
@@ -243,25 +247,10 @@
           </li>
         </ul>
       </section>
-      <section class="rating-products">
+      <section class="rating-products" id="poroducts-section">
         <h2>Popular products</h2>
-        <div class="categories">
-          <a href=""
-            ><button type="button" class="button-categories">Cameras</button></a
-          >
-
-          <a href="#"
-            ><button type="button" class="button-categories">Laptops</button></a
-          >
-
-          <a href="#"
-            ><button type="button" class="button-categories">Tablets</button></a
-          >
-
-          <a href="#"
-            ><button type="button" class="button-categories">Mouse</button></a
-          >
-        </div>
+        <div class="categories"></div>
+        <p class="empty-state-search">Nie znaleziono produktu</p>
         <ul id="shop-items"></ul>
       </section>
       <section class="discount">
@@ -512,6 +501,7 @@
         </ul>
       </section>
     </footer>
+    <script src="products.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

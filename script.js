@@ -22,6 +22,8 @@ const dropDownMenu = document.querySelector(".dropdown-menu");
 let shopItemsConteiner = document.querySelector("#shop-items");
 const slider1 = document.querySelector(".slider");
 const slider2 = document.querySelector(".slider2");
+const categorieItems = document.querySelector(".categories");
+const emptyState = document.querySelector(".empty-state-search");
 
 //----------------------------INPUTS--------------------------------
 
@@ -35,83 +37,28 @@ if (slider1) {
 }
 //----------------------------SHOP-ITEMS-DATA----------------------
 
-let shopItemsData = [
-  {
-    id: "1",
-    name: "Camera Nikon",
-    price: 200,
-    img: "images/camera 1.svg",
-    inCart: 0,
-  },
-  {
-    id: "2",
-    name: "Laptop Lenovo",
-    price: 2500,
-    img: "images/Frame 29 (2).svg",
-    inCart: 0,
-  },
-  {
-    id: "3",
-    name: "Pad X-box",
-    price: 100,
-    img: "images/Frame 29 (1).svg",
-    inCart: 0,
-  },
-  {
-    id: "4",
-    name: "Headphones",
-    price: 50,
-    img: "images/Frame 29.svg",
-    inCart: 0,
-  },
-  {
-    id: "5",
-    name: "Pad X-box",
-    price: 100,
-    img: "images/Frame 29 (1).svg",
-    inCart: 0,
-  },
-  {
-    id: "6",
-    name: "Laptop Lenovo",
-    price: 2500,
-    img: "images/Frame 29 (2).svg",
-    inCart: 0,
-  },
-  {
-    id: "7",
-    name: "Camera Canon",
-    price: 200,
-    img: "images/camera 1.svg",
-    inCart: 0,
-  },
-  {
-    id: "8",
-    name: "Headphones",
-    price: 50,
-    img: "images/Frame 29.svg",
-    inCart: 0,
-  },
-];
+let shopItemsData = products;
 //---------------------------FUNCTIONS--------------------------
+//--------------------------------------------GENERATE-SHOP-ITEM---------------
 
-//--------------------------------------------GEBERATE-SHOP-ITEM---------------
-
-let generateShop = () => {
+const generateShop = (items) => {
   if (shopItemsConteiner) {
-    return (shopItemsConteiner.innerHTML = shopItemsData
-      .map((x) => {
-        return `
-    <li id=${x.id}>
+    shopItemsConteiner.innerHTML = "";
+  }
+  for (let i = 0; i < items.length; i++) {
+    const newProduct = document.createElement("li");
+
+    newProduct.innerHTML = `
+    
             <a href="controler1.html">
               <img
                 alt="aparat"
-                src="${x.img}"
+                src="${items[i].img}"
                 width="283px"
                 height="169px"
               />
-              <h3>${x.name}</h3>
-              <p class="price">$ ${x.price}</p>
+              <h3>${items[i].name}</h3>
+              <p class="price">$ ${items[i].price}</p>
               <div class="ratio">
                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
                 ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
@@ -121,55 +68,81 @@ let generateShop = () => {
             <button  class="add-to-cart" type="button">
               <i class="fa-solid fa-cart-shopping"></i>
             </button>
-          </li>
+          
 `;
-      })
-      .join(""));
+    if (shopItemsConteiner) {
+      shopItemsConteiner.appendChild(newProduct);
+    }
   }
 };
-generateShop();
 
-//-----------------------BUTTON------------
-let addToCartBtn = document.querySelectorAll(".add-to-cart");
+//--------------------------------------------GENERATE-CATEGORIES-MAIN---------
 
-//----HAMBURGER-MENU
-const menu = () => {
-  barsIcon.classList.toggle("display-none");
-  xmark.classList.toggle("display-active");
-  navConteiner.classList.toggle("active-nav");
-};
+let categories = new Set();
 
-//----LOGIN-----REGISTER
-const loginPopup = () => {
-  signInPopup.classList.add("active-form");
-  body.classList.add("blurr");
-};
-const submitForm = () => {
-  signInPopup.classList.remove("active-form");
-  body.classList.remove("blurr");
-};
-const close = () => {
-  signInPopup.classList.remove("active-form");
-  body.classList.remove("blurr");
-};
-const categoriesList = () => {
-  dropDownMenu.classList.toggle("dropdown-menu-active");
-};
-const changeFormSign = () => {
-  formEmailPopup.classList.toggle("form-email-popup");
-  emailFormInput.setAttribute("required", true);
-
-  if (formEmailPopup.classList != "form-email-popup") {
-    submitPopup.textContent = "Sign up";
-    headerPopup.textContent = "Sign up";
-    changeForm.textContent = "Are you a member? Sign in";
-  } else {
-    submitPopup.textContent = "Sign in";
-    headerPopup.textContent = "Sign in";
-    changeForm.textContent = "Are you not a member? Sign up";
+const renderCategories = (item) => {
+  for (let i = 0; i < item.length; i++) {
+    categories.add(item[i].categories);
   }
+
+  categories = ["All categories", ...categories];
+
+  categories.forEach((el, index) => {
+    const newCategory = document.createElement("button");
+    newCategory.innerHTML = el;
+    newCategory.dataset.el = el;
+    if (categorieItems) {
+      categorieItems.appendChild(newCategory);
+    }
+    newCategory.classList.add("button-categories");
+    index === 0 ? newCategory.classList.add("button-categories-active") : "";
+  });
 };
+document.onload = generateShop(shopItemsData);
+document.onload = renderCategories(shopItemsData);
+
+const categoriesBtn = document.querySelectorAll(".button-categories");
+
+categoriesBtn.forEach((btn) =>
+  btn.addEventListener("click", (e) => {
+    categoriesBtn.forEach((btn) =>
+      btn.classList.remove("button-categories-active")
+    );
+    const category = e.target.dataset.el;
+    e.target.classList.add("button-categories-active");
+
+    shopItemsData = products;
+    if (category == "All categories") {
+      shopItemsData = products;
+    } else {
+      shopItemsData = shopItemsData.filter(
+        (product) => product.categories === category
+      );
+    }
+
+    generateShop(shopItemsData);
+  })
+);
+
+// -------------------------------------------SEARCH-INPUT------------------
+const searchStore = document.querySelectorAll(".search-store");
+searchStore.forEach((btn) =>
+  btn.addEventListener("input", (e) => {
+    const search = e.target.value;
+
+    const foundProducts = shopItemsData.filter((product) => {
+      if (product.name.toLowerCase().includes(search.toLowerCase()))
+        return product;
+    });
+    foundProducts.length === 0
+      ? emptyState.classList.add("empty-state-search-active")
+      : emptyState.classList.remove("empty-state-search-active");
+    generateShop(foundProducts);
+  })
+);
+
 //------------------------------------------ADDING-TO-CART-NUMBER-OF-PRODUCTS-----------------
+const addToCartBtn = document.querySelectorAll(".add-to-cart");
 
 for (let i = 0; i < addToCartBtn.length; i++) {
   addToCartBtn[i].addEventListener("click", () => {
@@ -235,7 +208,7 @@ function displayCart() {
     cartProductConteiner.innerHTML = "";
     Object.values(cartItems).map((item) => {
       cartProductConteiner.innerHTML += ` 
-              <tr >
+              <tr class="table-row">
                 <td class="cart-items-list">
                   <div class="cart-info">
                     <img src="${item.img}" />
@@ -247,8 +220,8 @@ function displayCart() {
                   </div>
                 </td>
 
-                <td id="item-price" value="${item.price}">${item.price}</td>
-                <td><li>
+                <td id="item-price" > ${item.price} $</td>
+                <td><li class="cart-quantity-item">
                   <button class="decrease-btn" type="button">-</button>
                   <input
                     class="quantity-input"
@@ -260,8 +233,10 @@ function displayCart() {
                   />
                   <button class="increase-btn" type="button">+</button>
                 </li></td>
-                <td class="subtotal-one-item" ></td>
-                <td><input type="checkbox" id="remove" /></td>
+                <td class="subtotal-one-item" >  ${
+                  item.price * item.inCart
+                } $</td>
+                <td><i id="remove" class="fa-solid fa-trash-can"></i></td>
               </tr>
             `;
     });
@@ -318,9 +293,11 @@ function checkInputsValue() {
 function subtotal(subtotalOneItem, quantityInput, itemPrice) {
   quantityInput.value = parseInt(quantityInput.value);
   itemPrice.textContent = parseInt(itemPrice.textContent);
-  subtotalOneItem.textContent = `$ ${
+
+  subtotalOneItem.textContent = ` ${
     quantityInput.value * itemPrice.textContent
-  }`;
+  } $`;
+  itemPrice.textContent += " $";
 }
 
 // ---------------------------------------------INCREASE--------------
@@ -348,9 +325,6 @@ function totalCostDecrease(product, cartItemsList) {
 function cartNumbersDecrease(product, cartItemsList) {
   let productNumbers = localStorage.getItem("cartNumbers");
   productNumbers = parseInt(productNumbers);
-
-  console.log(productNumbers);
-  console.log(sum);
 
   if (productNumbers == cartItemsList.length || productNumbers <= sum) {
     return;
@@ -381,6 +355,45 @@ function setItemsDecrease(product) {
     localStorage.setItem("productsInCart", JSON.stringify(cartItems));
   }
 }
+
+//----HAMBURGER-MENU
+const menu = () => {
+  barsIcon.classList.toggle("display-none");
+  xmark.classList.toggle("display-active");
+  navConteiner.classList.toggle("active-nav");
+};
+
+//----LOGIN-----REGISTER
+const loginPopup = () => {
+  signInPopup.classList.add("active-form");
+  body.classList.add("blurr");
+};
+const submitForm = () => {
+  signInPopup.classList.remove("active-form");
+  body.classList.remove("blurr");
+};
+const close = () => {
+  signInPopup.classList.remove("active-form");
+  body.classList.remove("blurr");
+};
+const categoriesList = () => {
+  dropDownMenu.classList.toggle("dropdown-menu-active");
+};
+const changeFormSign = () => {
+  formEmailPopup.classList.toggle("form-email-popup");
+  emailFormInput.setAttribute("required", true);
+
+  if (formEmailPopup.classList != "form-email-popup") {
+    submitPopup.textContent = "Sign up";
+    headerPopup.textContent = "Sign up";
+    changeForm.textContent = "Are you a member? Sign in";
+  } else {
+    submitPopup.textContent = "Sign in";
+    headerPopup.textContent = "Sign in";
+    changeForm.textContent = "Are you not a member? Sign up";
+  }
+};
+
 //----------------------------ADD-EVENT-LISTENERS----------------
 burger.addEventListener("click", menu);
 userBtn.addEventListener("click", loginPopup);
