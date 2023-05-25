@@ -24,6 +24,7 @@ const slider1 = document.querySelector(".slider");
 const slider2 = document.querySelector(".slider2");
 const categorieItems = document.querySelector(".categories");
 const emptyState = document.querySelector(".empty-state-search");
+const sectionCart = document.querySelector(".cart");
 
 //----------------------------INPUTS--------------------------------
 
@@ -167,12 +168,17 @@ function cartNumbers(product) {
     localStorage.setItem("cartNumbers", 1);
     itemNumber.textContent = 1;
   }
-  setItems(product);
+
+  if (!sectionCart) {
+    setItems(product);
+  } else {
+    return;
+  }
 }
 function setItems(product) {
   let cartItems = localStorage.getItem("productsInCart");
   cartItems = JSON.parse(cartItems);
-
+  console.log(cartItems);
   if (cartItems != null) {
     if (cartItems[product.id] == undefined) {
       cartItems = {
@@ -195,15 +201,35 @@ function totalCost(product) {
 
   if (cartCost != null) {
     cartCost = parseInt(cartCost);
+    console.log(cartCost);
+
     localStorage.setItem("totalCost", cartCost + parseInt(product.price));
   } else {
     localStorage.setItem("totalCost", product.price);
   }
 }
+
+const CartTotal = () => {
+  let cartCost = localStorage.getItem("totalCost");
+  cartCost = parseInt(cartCost);
+  let totalPrice = document.querySelector(".cart-subtotal-price");
+  let totalAmount = document.querySelector(".cart-total-amount");
+
+  if (cartCost) {
+    totalPrice.innerHTML = `${cartCost} $`;
+    totalAmount.innerHTML = `${cartCost} $`;
+  } else {
+    totalPrice.innerHTML = "00,00$";
+    totalAmount.innerHTML = "00,00$";
+  }
+};
+
 function displayCart() {
   let cartItems = localStorage.getItem("productsInCart");
   cartItems = JSON.parse(cartItems);
+
   let cartProductConteiner = document.querySelector("tbody");
+
   if (cartItems && cartProductConteiner) {
     cartProductConteiner.innerHTML = "";
     Object.values(cartItems).map((item) => {
@@ -220,7 +246,7 @@ function displayCart() {
                   </div>
                 </td>
 
-                <td id="item-price" > ${item.price} $</td>
+                <td id="item-price" >${item.price} $</td>
                 <td><li class="cart-quantity-item">
                   <button class="decrease-btn" type="button">-</button>
                   <input
@@ -233,7 +259,7 @@ function displayCart() {
                   />
                   <button class="increase-btn" type="button">+</button>
                 </li></td>
-                <td class="subtotal-one-item" >  ${
+                <td class="subtotal-one-item" >${
                   item.price * item.inCart
                 } $</td>
                 <td><i id="remove" class="fa-solid fa-trash-can"></i></td>
@@ -241,38 +267,86 @@ function displayCart() {
             `;
     });
   }
+  CartTotal();
 }
+
 onLoadCartNumbers();
 displayCart();
-//-----------------------------INCREASE/DECREASE-ITEM-NUMBER-----------------------
 
+//-----------------------------INCREASE/DECREASE-ITEM-NUMBER-----------------------
 const increaseBtn = document.querySelectorAll(".increase-btn");
 const decreaseBtn = document.querySelectorAll(".decrease-btn");
 let quantityInput = document.querySelectorAll(".quantity-input");
 const cartItemsList = document.querySelectorAll(".cart-items-list");
 let subtotalOneItem = document.querySelectorAll(".subtotal-one-item");
 let itemPrice = document.querySelectorAll("#item-price");
+
 let sum = 1;
+let currentProduct;
+let subtotalAllItems = [];
+let subtotalSum = quantityInput.length;
+let subtotalQuantityInput = [];
+let subtotalQuantityInputSum = quantityInput.length;
 
 for (let i = 0; i < increaseBtn.length; i++) {
   increaseBtn[i].addEventListener("click", () => {
     increase(quantityInput[i]);
     cartNumbers(shopItemsData[i]);
-    totalCost(shopItemsData[i]);
     subtotal(subtotalOneItem[i], quantityInput[i], itemPrice[i]);
+    inCartIncrease(i);
+    CartTotal();
   });
+
   decreaseBtn[i].addEventListener("click", () => {
     decrease(quantityInput[i]);
-    totalCostDecrease(shopItemsData[i], cartItemsList);
-    cartNumbersDecrease(shopItemsData[i], cartItemsList);
+    cartNumbersDecrease(shopItemsData[i], i);
     subtotal(subtotalOneItem[i], quantityInput[i], itemPrice[i]);
+    subtotalPrice();
+    inCartDecrease(i);
+    CartTotal();
   });
+}
+
+function subtotalPrice() {
+  subtotalAllItems = [];
+  subtotalQuantityInput = [];
+  itemPrice.forEach((price) => {
+    subtotalAllItems.push(parseInt(price.textContent.replace(/\D/g, "")));
+  });
+
+  itemPrice.forEach((quan) => {
+    subtotalQuantityInput.push(parseInt(quan.value));
+  });
+
+  subtotalSum = subtotalAllItems.reduce(function (a, b) {
+    return a + b;
+  });
+
+  subtotalQuantityInputSum = subtotalQuantityInput.reduce(function (a, b) {
+    return a + b;
+  });
+}
+
+// ---------------------------------------------INCREASE--------------
+
+function inCartIncrease(item) {
+  let cartItems = localStorage.getItem("productsInCart");
+  cartItems = JSON.parse(cartItems);
+
+  currentProduct = cartItems[Object.keys(cartItems)[item]].id;
+  cartItems[currentProduct].inCart += 1;
+  let currentProductPrice = cartItems[Object.keys(cartItems)[item]];
+  localStorage.setItem("productsInCart", JSON.stringify(cartItems));
+  totalCost(currentProductPrice);
 }
 
 let increase = (quantityInput) => {
   quantityInput.valueAsNumber += 1;
   checkInputsValue();
 };
+
+// --------------------------------------------------DECREASE-----------------
+
 let decrease = (quantityInput) => {
   if (quantityInput.valueAsNumber == 1) {
     return;
@@ -281,14 +355,23 @@ let decrease = (quantityInput) => {
     checkInputsValue();
   }
 };
-function checkInputsValue() {
-  let quantityInputsValue = [];
-  for (let i = 0; i < quantityInput.length; i++) {
-    quantityInputsValue.push(quantityInput[i].valueAsNumber);
+
+function cartNumbersDecrease(product, i) {
+  let productNumbers = localStorage.getItem("cartNumbers");
+  productNumbers = parseInt(productNumbers);
+
+  if (productNumbers > subtotalQuantityInputSum) {
+    localStorage.setItem("cartNumbers", productNumbers - 1);
+    itemNumber.textContent = productNumbers - 1;
+  } else if (parseInt(quantityInput[i].value) == 1) {
+    return;
   }
-  sum = quantityInputsValue.reduce(function (a, b) {
-    return a + b;
-  });
+  console.log(typeof parseInt(quantityInput[i].value));
+  if (!sectionCart) {
+    setItems(product);
+  } else {
+    return;
+  }
 }
 function subtotal(subtotalOneItem, quantityInput, itemPrice) {
   quantityInput.value = parseInt(quantityInput.value);
@@ -300,62 +383,82 @@ function subtotal(subtotalOneItem, quantityInput, itemPrice) {
   itemPrice.textContent += " $";
 }
 
-// ---------------------------------------------INCREASE--------------
-
-// --------------------------------------------------DECREASE-----------------
-
-function totalCostDecrease(product, cartItemsList) {
-  let productNumbers = localStorage.getItem("cartNumbers");
-  productNumbers = parseInt(productNumbers);
-  let cartCost = localStorage.getItem("totalCost");
+function inCartDecrease(item) {
   let cartItems = localStorage.getItem("productsInCart");
+  let cartCost = localStorage.getItem("totalCost");
   cartItems = JSON.parse(cartItems);
+  cartCost = parseInt(cartCost);
+  let pricesResult;
+
+  currentProduct = cartItems[Object.keys(cartItems)[item]].id;
+  let currentProductPrice1 = cartItems[Object.keys(cartItems)[item]].price;
 
   if (
-    productNumbers == cartItemsList.length ||
-    cartItems[product.id].inCart == 1
+    parseInt(
+      quantityInput[
+        item
+      ].parentElement.parentElement.previousSibling.previousSibling.textContent.replace(
+        /\D/g,
+        ""
+      )
+    ) ==
+    parseInt(
+      quantityInput[
+        item
+      ].parentElement.parentElement.nextSibling.nextSibling.textContent.replace(
+        /\D/g,
+        ""
+      )
+    )
   ) {
-    return;
-  } else if (cartCost != null) {
-    cartCost = parseInt(cartCost);
-    localStorage.setItem("totalCost", cartCost - parseInt(product.price));
-  }
-}
-
-function cartNumbersDecrease(product, cartItemsList) {
-  let productNumbers = localStorage.getItem("cartNumbers");
-  productNumbers = parseInt(productNumbers);
-
-  if (productNumbers == cartItemsList.length || productNumbers <= sum) {
-    return;
-  } else if (productNumbers) {
-    localStorage.setItem("cartNumbers", productNumbers - 1);
-    itemNumber.textContent = productNumbers - 1;
+    pricesResult = true;
+  } else {
+    pricesResult = false;
   }
 
-  setItemsDecrease(product);
-}
+  console.log(pricesResult);
 
-function setItemsDecrease(product) {
-  let cartItems = localStorage.getItem("productsInCart");
-  cartItems = JSON.parse(cartItems);
-
-  if (cartItems[product.id].inCart == 1) {
+  if (cartCost <= subtotalSum || quantityInput[item].value == 1) {
     return;
   } else {
-    if (cartItems != null) {
-      if (cartItems[product.id] == undefined) {
-        cartItems = {
-          ...cartItems,
-          [product.id]: product,
-        };
-      }
-      cartItems[product.id].inCart -= 1;
-    }
+    localStorage.setItem(
+      "totalCost",
+      cartCost - parseInt(currentProductPrice1)
+    );
+  }
+  cartItems[currentProduct].inCart -= 1;
+
+  if (cartItems[currentProduct].inCart > 0) {
     localStorage.setItem("productsInCart", JSON.stringify(cartItems));
+  } else {
+    return;
   }
 }
 
+function checkInputsValue() {
+  let quantityInputsValue = [];
+  for (let i = 0; i < quantityInput.length; i++) {
+    quantityInputsValue.push(quantityInput[i].valueAsNumber);
+  }
+  sum = quantityInputsValue.reduce(function (a, b) {
+    return a + b;
+  });
+}
+
+//--------------------------DELETE-ITEM-ON-CART-PAGE--------
+const deleteItemBtns = document.querySelectorAll("#remove");
+
+const deleteButtons = () => {
+  for (let i = 0; i < deleteItemBtns.length; i++) {
+    deleteItemBtns[i].addEventListener("click", () => {
+      let cartItems = localStorage.getItem("productsInCart");
+      cartItems = JSON.parse(cartItems);
+      let currentProductPrice = cartItems[Object.keys(cartItems)[i]];
+      console.log((currentProductPrice = {}));
+      localStorage.setItem("productsInCart", JSON.stringify(cartItems));
+    });
+  }
+};
 //----HAMBURGER-MENU
 const menu = () => {
   barsIcon.classList.toggle("display-none");
