@@ -25,6 +25,7 @@ const slider2 = document.querySelector(".slider2");
 const categorieItems = document.querySelector(".categories");
 const emptyState = document.querySelector(".empty-state-search");
 const sectionCart = document.querySelector(".cart");
+const cartTotal = document.querySelector(".card-table-right");
 
 //----------------------------INPUTS--------------------------------
 
@@ -215,10 +216,10 @@ const CartTotal = () => {
   let totalPrice = document.querySelector(".cart-subtotal-price");
   let totalAmount = document.querySelector(".cart-total-amount");
 
-  if (cartCost) {
+  if (cartTotal) {
     totalPrice.innerHTML = `${cartCost} $`;
     totalAmount.innerHTML = `${cartCost} $`;
-  } else {
+  } else if (cartTotal) {
     totalPrice.innerHTML = "00,00$";
     totalAmount.innerHTML = "00,00$";
   }
@@ -281,7 +282,6 @@ const cartItemsList = document.querySelectorAll(".cart-items-list");
 let subtotalOneItem = document.querySelectorAll(".subtotal-one-item");
 let itemPrice = document.querySelectorAll("#item-price");
 
-let sum = 1;
 let currentProduct;
 let subtotalAllItems = [];
 let subtotalSum = quantityInput.length;
@@ -290,20 +290,22 @@ let subtotalQuantityInputSum = quantityInput.length;
 
 for (let i = 0; i < increaseBtn.length; i++) {
   increaseBtn[i].addEventListener("click", () => {
-    increase(quantityInput[i]);
     cartNumbers(shopItemsData[i]);
+    increase(quantityInput[i]);
     subtotal(subtotalOneItem[i], quantityInput[i], itemPrice[i]);
     inCartIncrease(i);
     CartTotal();
   });
 
   decreaseBtn[i].addEventListener("click", () => {
-    decrease(quantityInput[i]);
-    cartNumbersDecrease(shopItemsData[i], i);
-    subtotal(subtotalOneItem[i], quantityInput[i], itemPrice[i]);
-    subtotalPrice();
     inCartDecrease(i);
+    cartNumbersDecrease(shopItemsData[i], i);
+
+    decrease(quantityInput[i]);
+    subtotal(subtotalOneItem[i], quantityInput[i], itemPrice[i]);
     CartTotal();
+
+    subtotalPrice();
   });
 }
 
@@ -342,7 +344,6 @@ function inCartIncrease(item) {
 
 let increase = (quantityInput) => {
   quantityInput.valueAsNumber += 1;
-  checkInputsValue();
 };
 
 // --------------------------------------------------DECREASE-----------------
@@ -352,7 +353,6 @@ let decrease = (quantityInput) => {
     return;
   } else {
     quantityInput.valueAsNumber -= 1;
-    checkInputsValue();
   }
 };
 
@@ -360,13 +360,14 @@ function cartNumbersDecrease(product, i) {
   let productNumbers = localStorage.getItem("cartNumbers");
   productNumbers = parseInt(productNumbers);
 
-  if (productNumbers > subtotalQuantityInputSum) {
+  if (quantityInput[i].value > 1) {
     localStorage.setItem("cartNumbers", productNumbers - 1);
     itemNumber.textContent = productNumbers - 1;
   } else if (parseInt(quantityInput[i].value) == 1) {
-    return;
+    localStorage.setItem("cartNumbers", productNumbers);
+    itemNumber.textContent = productNumbers;
   }
-  console.log(typeof parseInt(quantityInput[i].value));
+
   if (!sectionCart) {
     setItems(product);
   } else {
@@ -388,77 +389,60 @@ function inCartDecrease(item) {
   let cartCost = localStorage.getItem("totalCost");
   cartItems = JSON.parse(cartItems);
   cartCost = parseInt(cartCost);
-  let pricesResult;
 
   currentProduct = cartItems[Object.keys(cartItems)[item]].id;
   let currentProductPrice1 = cartItems[Object.keys(cartItems)[item]].price;
+  console.log(quantityInput[item].value);
 
-  if (
-    parseInt(
-      quantityInput[
-        item
-      ].parentElement.parentElement.previousSibling.previousSibling.textContent.replace(
-        /\D/g,
-        ""
-      )
-    ) ==
-    parseInt(
-      quantityInput[
-        item
-      ].parentElement.parentElement.nextSibling.nextSibling.textContent.replace(
-        /\D/g,
-        ""
-      )
-    )
-  ) {
-    pricesResult = true;
-  } else {
-    pricesResult = false;
-  }
-
-  console.log(pricesResult);
-
-  if (cartCost <= subtotalSum || quantityInput[item].value == 1) {
-    return;
+  if (quantityInput[item].value == 1) {
+    localStorage.setItem("totalCost", cartCost);
   } else {
     localStorage.setItem(
       "totalCost",
       cartCost - parseInt(currentProductPrice1)
     );
   }
+
   cartItems[currentProduct].inCart -= 1;
 
-  if (cartItems[currentProduct].inCart > 0) {
+  if ((cartItems[currentProduct].inCart = 1)) {
     localStorage.setItem("productsInCart", JSON.stringify(cartItems));
   } else {
     return;
   }
 }
 
-function checkInputsValue() {
-  let quantityInputsValue = [];
-  for (let i = 0; i < quantityInput.length; i++) {
-    quantityInputsValue.push(quantityInput[i].valueAsNumber);
-  }
-  sum = quantityInputsValue.reduce(function (a, b) {
-    return a + b;
-  });
-}
-
 //--------------------------DELETE-ITEM-ON-CART-PAGE--------
 const deleteItemBtns = document.querySelectorAll("#remove");
 
-const deleteButtons = () => {
-  for (let i = 0; i < deleteItemBtns.length; i++) {
-    deleteItemBtns[i].addEventListener("click", () => {
-      let cartItems = localStorage.getItem("productsInCart");
-      cartItems = JSON.parse(cartItems);
-      let currentProductPrice = cartItems[Object.keys(cartItems)[i]];
-      console.log((currentProductPrice = {}));
-      localStorage.setItem("productsInCart", JSON.stringify(cartItems));
-    });
-  }
-};
+for (let i = 0; i < deleteItemBtns.length; i++) {
+  deleteItemBtns[i].addEventListener("click", () => {
+    let cartItems = localStorage.getItem("productsInCart");
+    let productNumbers = localStorage.getItem("cartNumbers");
+    let cartCost = localStorage.getItem("totalCost");
+    cartItems = JSON.parse(cartItems);
+    productNumbers = JSON.parse(productNumbers);
+    cartCost = JSON.parse(cartCost);
+
+    localStorage.setItem(
+      "cartNumbers",
+      productNumbers - cartItems[Object.keys(cartItems)[i]].inCart
+    );
+    localStorage.setItem(
+      "totalCost",
+      cartCost -
+        cartItems[Object.keys(cartItems)[i]].price *
+          cartItems[Object.keys(cartItems)[i]].inCart
+    );
+
+    delete cartItems[Object.keys(cartItems)[i]];
+
+    localStorage.setItem("productsInCart", JSON.stringify(cartItems));
+    displayCart();
+    location.reload();
+  });
+}
+
 //----HAMBURGER-MENU
 const menu = () => {
   barsIcon.classList.toggle("display-none");

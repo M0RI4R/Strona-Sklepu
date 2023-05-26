@@ -68,6 +68,8 @@ h2 {
   flex-wrap: wrap;
 }
 .search-box {
+  display: flex;
+  align-items: center;
   padding-left: 85px;
 }
 .search-box input {
@@ -1191,10 +1193,11 @@ tbody tr:not(:first-child) {
 .under-table-button {
   border: 1px solid var(--border-color);
   background-color: white;
-
+  cursor: pointer;
   margin-top: 0px;
   padding: 19px 37px;
   border-radius: 20px;
+  text-align: center;
 }
 
 .under-table-button:hover {
