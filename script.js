@@ -49,10 +49,11 @@ const generateShop = (items) => {
   }
   for (let i = 0; i < items.length; i++) {
     const newProduct = document.createElement("li");
-
+    newProduct.classList.add("link-to-item-details");
     newProduct.innerHTML = `
     
-            <a href="controler1.html">
+            <a >
+
               <img
                 alt="aparat"
                 src="${items[i].img}"
@@ -125,6 +126,15 @@ categoriesBtn.forEach((btn) =>
     generateShop(shopItemsData);
   })
 );
+
+//--------------------------------------------ITEM-DETAILS---------------------
+const itemDetails = document.querySelectorAll(".link-to-item-details");
+
+itemDetails.forEach((elem) => {
+  elem.addEventListener("click", () => {
+    console.log(elem);
+  });
+});
 
 // -------------------------------------------SEARCH-INPUT------------------
 const searchStore = document.querySelectorAll(".search-store");
