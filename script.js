@@ -40,7 +40,7 @@ if (slider1) {
 //----------------------------SHOP-ITEMS-DATA----------------------
 
 let shopItemsData = products;
-//---------------------------FUNCTIONS--------------------------
+
 //--------------------------------------------GENERATE-SHOP-ITEM---------------
 
 const generateShop = (items) => {
@@ -52,7 +52,7 @@ const generateShop = (items) => {
     newProduct.classList.add("link-to-item-details");
     newProduct.innerHTML = `
     
-            <a >
+            <a  href="controler1.html">
 
               <img
                 alt="aparat"
@@ -76,6 +76,22 @@ const generateShop = (items) => {
     if (shopItemsConteiner) {
       shopItemsConteiner.appendChild(newProduct);
     }
+  }
+  let addToCartBtn = document.querySelectorAll(".add-to-cart");
+
+  for (let i = 0; i < addToCartBtn.length; i++) {
+    addToCartBtn[i].addEventListener("click", () => {
+      cartNumbers(shopItemsData[i]);
+      totalCost(shopItemsData[i]);
+      console.log(addToCartBtn);
+    });
+  }
+  const shopItemInfo = document.querySelectorAll(".link-to-item-details");
+
+  for (let i = 0; i < shopItemInfo.length; i++) {
+    shopItemInfo[i].addEventListener("click", () => {
+      currentItemInfo(shopItemsData[i]);
+    });
   }
 };
 
@@ -128,20 +144,184 @@ categoriesBtn.forEach((btn) =>
 );
 
 //--------------------------------------------ITEM-DETAILS---------------------
-const itemDetails = document.querySelectorAll(".link-to-item-details");
+const currentItemConteiner = document.querySelector(".product");
 
-itemDetails.forEach((elem) => {
-  elem.addEventListener("click", () => {
-    console.log(elem);
-  });
-});
+const currentItemInfo = (product) => {
+  let currrentWatchingProduct = null;
+  currrentWatchingProduct = localStorage.setItem(
+    "currentProduct",
+    JSON.stringify(product)
+  );
+};
 
+const generateCurrentItemInfo = () => {
+  let product = localStorage.getItem("currentProduct");
+  product = JSON.parse(product);
+  console.log(product);
+  if (currentItemConteiner) {
+    currentItemConteiner.innerHTML = `<div class="product-grid-left">
+          <img src="${product.img}" />
+          <img src="./images/Frame 29 (1).svg" />
+          <img src="./images/Frame 29 (1).svg" />
+        </div>
+        <div class="product-description">
+          <ul>
+            <li class="product-description-item">
+              <ul>
+                <li><h2>${product.name}</h2></li>
+                <li><p class="price">${product.price} $</p></li>
+                <li>
+                  <div class="ratio">
+                    <i class="fa-solid fa-star"></i
+                    ><i class="fa-solid fa-star"></i
+                    ><i class="fa-solid fa-star"></i
+                    ><i class="fa-solid fa-star"></i
+                    ><i class="fa-solid fa-star"></i>
+                  </div>
+                </li>
+                <li>
+                  <ul class="flex">
+                    <li><h3>Avallability :</h3></li>
+                    <li>
+                      <i class="fa-solid fa-check color-available"></i>
+                      <span class="color-available">In stock</span>
+                    </li>
+                  </ul>
+                </li>
+                <li><p>Hurry up! Only ${product.quantity} product left in stock</p></li>
+              </ul>
+            </li>
+            <li class="product-description-item">
+              <ul>
+                <li>
+                  <h3>color :</h3>
+                </li>
+
+                <li>
+                  <input
+                    class="item-color-yellow"
+                    type="radio"
+                    name="color"
+                    id="yellow"
+                  />
+                  <label class="yellow" for="yellow"></label>
+                </li>
+                <li>
+                  <input
+                    class="item-color-black"
+                    type="radio"
+                    name="color"
+                    id="black"
+                  /><label for="black" class="black"></label>
+                </li>
+              </ul>
+              <ul class="size-conteiner">
+                <li><h3>Size :</h3></li>
+                <li>
+                  <input
+                    class="chose-size-input"
+                    name="size"
+                    type="radio"
+                    id="size30"
+                  />
+                  <label class="chose-size-label" for="size30">30</label>
+                </li>
+                <li>
+                  <input
+                    class="chose-size-input"
+                    name="size"
+                    type="radio"
+                    id="size42"
+                  />
+                  <label class="chose-size-label" for="size42">42</label>
+                </li>
+                <li>
+                  <input
+                    class="chose-size-input"
+                    name="size"
+                    type="radio"
+                    id="size48"
+                  />
+                  <label class="chose-size-label" for="size48">48</label>
+                </li>
+                <li>
+                  <input
+                    class="chose-size-input"
+                    name="size"
+                    type="radio"
+                    id="size56"
+                  />
+                  <label class="chose-size-label" for="size56">56</label>
+                </li>
+              </ul>
+              <ul>
+                <li><h3>Quantity :</h3></li>
+                <li>
+                  <button class="decrease-btn-current-item" type="button">-</button>
+                  <input
+                    class="quantity-input"
+                    type="number"
+                    id="quantity"
+                    value="1"
+                    min="1"
+                    max="99"
+                  />
+                  <button class="increase-btn-current-item" type="button">+</button>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <button type="button" class="more-details-button add-to-cart-current-item">
+                    Add to cart
+                  </button>
+                  <button type="button" class="more-details-button">
+                    Buy it now
+                  </button>
+                  <input type="checkbox" class="add-to favourite" />
+                </li>
+              </ul>
+            </li>
+            <li class="product-description-item">
+              <ul>
+                <li><h3>Sku :</h3></li>
+                <li>0${product.sku}</li>
+              </ul>
+              <ul>
+                <li><h3>Category:</h3></li>
+                <li>${product.categories}</li>
+               
+              </ul>
+              <ul>
+                <li><h3>Share :</h3></li>
+                <li>G</li>
+                <li>F</li>
+                <li>W</li>
+              </ul>
+            </li>
+          </ul>
+        </div>`;
+  }
+  //     const addToCartCurrentItemBtn = document.querySelector(
+  //       ".add-to-cart-current-item"
+  //     );
+  //     console.log(addToCartCurrentItemBtn);
+  //     addToCartCurrentItemBtn.addEventListener("click", () => {
+  //       let product = localStorage.getItem("currentProduct");
+  // product.
+
+  //       let cartItems = localStorage.getItem("productsInCart");
+  //       localStorage.setItem("productsInCart", )
+  //       displayCart();
+  //     });
+};
+
+document.onload = generateCurrentItemInfo();
 // -------------------------------------------SEARCH-INPUT------------------
 const searchStore = document.querySelectorAll(".search-store");
 searchStore.forEach((btn) =>
   btn.addEventListener("input", (e) => {
     const search = e.target.value;
-
+    console.log(search);
     const foundProducts = shopItemsData.filter((product) => {
       if (product.name.toLowerCase().includes(search.toLowerCase()))
         return product;
@@ -154,14 +334,7 @@ searchStore.forEach((btn) =>
 );
 
 //------------------------------------------ADDING-TO-CART-NUMBER-OF-PRODUCTS-----------------
-const addToCartBtn = document.querySelectorAll(".add-to-cart");
 
-for (let i = 0; i < addToCartBtn.length; i++) {
-  addToCartBtn[i].addEventListener("click", () => {
-    cartNumbers(shopItemsData[i]);
-    totalCost(shopItemsData[i]);
-  });
-}
 function onLoadCartNumbers() {
   let productNumbers = localStorage.getItem("cartNumbers");
   if (productNumbers) {
@@ -189,7 +362,7 @@ function cartNumbers(product) {
 function setItems(product) {
   let cartItems = localStorage.getItem("productsInCart");
   cartItems = JSON.parse(cartItems);
-  console.log(cartItems);
+
   if (cartItems != null) {
     if (cartItems[product.id] == undefined) {
       cartItems = {

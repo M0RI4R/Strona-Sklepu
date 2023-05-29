@@ -236,7 +236,6 @@ h2 {
 .slider2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin-bottom: 52px;
   width: 100%;
   height: 100%;
   opacity: 0;
@@ -927,7 +926,9 @@ footer {
   border: 1px solid black;
 }
 .decrease-btn,
-.increase-btn {
+.increase-btn,
+.increase-btn-current-item,
+.decrease-btn-current-item {
   width: 30px;
   height: 30px;
   background-color: var(--checkbox-select-background);
