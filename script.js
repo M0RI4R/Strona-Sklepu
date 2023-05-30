@@ -148,6 +148,7 @@ const currentItemConteiner = document.querySelector(".product");
 
 const currentItemInfo = (product) => {
   let currrentWatchingProduct = null;
+
   currrentWatchingProduct = localStorage.setItem(
     "currentProduct",
     JSON.stringify(product)
@@ -157,7 +158,7 @@ const currentItemInfo = (product) => {
 const generateCurrentItemInfo = () => {
   let product = localStorage.getItem("currentProduct");
   product = JSON.parse(product);
-  console.log(product);
+
   if (currentItemConteiner) {
     currentItemConteiner.innerHTML = `<div class="product-grid-left">
           <img src="${product.img}" />
@@ -169,7 +170,7 @@ const generateCurrentItemInfo = () => {
             <li class="product-description-item">
               <ul>
                 <li><h2>${product.name}</h2></li>
-                <li><p class="price">${product.price} $</p></li>
+                <li><p id="#item-price" class="price">${product.price} $</p></li>
                 <li>
                   <div class="ratio">
                     <i class="fa-solid fa-star"></i
@@ -257,7 +258,7 @@ const generateCurrentItemInfo = () => {
               <ul>
                 <li><h3>Quantity :</h3></li>
                 <li>
-                  <button class="decrease-btn-current-item" type="button">-</button>
+                  <button class="decrease-btn" type="button">-</button>
                   <input
                     class="quantity-input"
                     type="number"
@@ -266,12 +267,12 @@ const generateCurrentItemInfo = () => {
                     min="1"
                     max="99"
                   />
-                  <button class="increase-btn-current-item" type="button">+</button>
+                  <button class="increase-btn" type="button">+</button>
                 </li>
               </ul>
               <ul>
                 <li>
-                  <button type="button" class="more-details-button add-to-cart-current-item">
+                  <button type="button" class="more-details-button add-to-cart-current-item ">
                     Add to cart
                   </button>
                   <button type="button" class="more-details-button">
@@ -300,19 +301,9 @@ const generateCurrentItemInfo = () => {
             </li>
           </ul>
         </div>`;
-  }
-  //     const addToCartCurrentItemBtn = document.querySelector(
-  //       ".add-to-cart-current-item"
-  //     );
-  //     console.log(addToCartCurrentItemBtn);
-  //     addToCartCurrentItemBtn.addEventListener("click", () => {
-  //       let product = localStorage.getItem("currentProduct");
-  // product.
 
-  //       let cartItems = localStorage.getItem("productsInCart");
-  //       localStorage.setItem("productsInCart", )
-  //       displayCart();
-  //     });
+    addCurrentWatchingItem();
+  }
 };
 
 document.onload = generateCurrentItemInfo();
@@ -475,9 +466,12 @@ for (let i = 0; i < increaseBtn.length; i++) {
   increaseBtn[i].addEventListener("click", () => {
     cartNumbers(shopItemsData[i]);
     increase(quantityInput[i]);
-    subtotal(subtotalOneItem[i], quantityInput[i], itemPrice[i]);
+    if (sectionCart) {
+      subtotal(subtotalOneItem[i], quantityInput[i], itemPrice[i]);
+    }
     inCartIncrease(i);
     CartTotal();
+    console.log(itemPrice[i]);
   });
 
   decreaseBtn[i].addEventListener("click", () => {
@@ -485,7 +479,9 @@ for (let i = 0; i < increaseBtn.length; i++) {
     cartNumbersDecrease(shopItemsData[i], i);
 
     decrease(quantityInput[i]);
-    subtotal(subtotalOneItem[i], quantityInput[i], itemPrice[i]);
+    if (sectionCart) {
+      subtotal(subtotalOneItem[i], quantityInput[i], itemPrice[i]);
+    }
     CartTotal();
 
     subtotalPrice();
@@ -593,6 +589,38 @@ function inCartDecrease(item) {
   } else {
     return;
   }
+}
+//---------------------------------ADD-TO-CART-CURRENT-WATCHING-ITEM---
+
+function addCurrentWatchingItem() {
+  const addToCartCurrentItemBtn = document.querySelector(
+    ".add-to-cart-current-item"
+  );
+
+  addToCartCurrentItemBtn.addEventListener("click", () => {
+    let product = localStorage.getItem("currentProduct");
+
+    product = JSON.parse(product);
+    console.log(product.id);
+
+    product.inCart = quantityInput[0].value;
+    if (product.id == undefined) {
+      return;
+    } else if (product) {
+      const addInfoProduct = {
+        [product.id]: product,
+      };
+
+      localStorage.setItem("currentProduct", JSON.stringify(addInfoProduct));
+
+      let cartItems = localStorage.getItem("productsInCart");
+      cartItems = JSON.parse(cartItems);
+
+      const returnTarget = Object.assign(addInfoProduct, cartItems);
+
+      localStorage.setItem("productsInCart", JSON.stringify(returnTarget));
+    }
+  });
 }
 
 //--------------------------DELETE-ITEM-ON-CART-PAGE--------
