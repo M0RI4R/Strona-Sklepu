@@ -258,16 +258,16 @@ const generateCurrentItemInfo = () => {
               <ul>
                 <li><h3>Quantity :</h3></li>
                 <li>
-                  <button class="decrease-btn" type="button">-</button>
+                  <button class="decrease-btn-current-product" type="button">-</button>
                   <input
-                    class="quantity-input"
+                    class="quantity-input-current-product"
                     type="number"
                     id="quantity"
                     value="1"
                     min="1"
                     max="99"
                   />
-                  <button class="increase-btn" type="button">+</button>
+                  <button class="increase-btn-current-product" type="button">+</button>
                 </li>
               </ul>
               <ul>
@@ -596,14 +596,39 @@ function addCurrentWatchingItem() {
   const addToCartCurrentItemBtn = document.querySelector(
     ".add-to-cart-current-item"
   );
+  const decreaseBtnCurrentProduct = document.querySelector(
+    ".decrease-btn-current-product"
+  );
+  const increaseBtnCurrentProduct = document.querySelector(
+    ".increase-btn-current-product"
+  );
+  let inputCurrentProduct = document.querySelector(
+    ".quantity-input-current-product"
+  );
+  const currentProductPrice = document.querySelector(".price");
+  const currentPriceNumberValue = parseInt(
+    currentProductPrice.textContent.replace(/\D/g, "")
+  );
+  const yellowColourBtn = document.querySelector(".yellow");
+  const blackColourBtn = document.querySelector(".black");
+
+  increaseBtnCurrentProduct.addEventListener("click", () => {
+    inputCurrentProduct.valueAsNumber += 1;
+  });
+
+  decreaseBtnCurrentProduct.addEventListener("click", () => {
+    if (inputCurrentProduct.valueAsNumber == 1) {
+      return;
+    } else {
+      inputCurrentProduct.valueAsNumber -= 1;
+    }
+  });
 
   addToCartCurrentItemBtn.addEventListener("click", () => {
     let product = localStorage.getItem("currentProduct");
-
     product = JSON.parse(product);
-    console.log(product.id);
 
-    product.inCart = quantityInput[0].value;
+    product.inCart = inputCurrentProduct.value;
     if (product.id == undefined) {
       return;
     } else if (product) {
@@ -611,15 +636,83 @@ function addCurrentWatchingItem() {
         [product.id]: product,
       };
 
-      localStorage.setItem("currentProduct", JSON.stringify(addInfoProduct));
+      localStorage.setItem(
+        "currentProductInCart",
+        JSON.stringify(addInfoProduct)
+      );
 
       let cartItems = localStorage.getItem("productsInCart");
       cartItems = JSON.parse(cartItems);
 
-      const returnTarget = Object.assign(addInfoProduct, cartItems);
-
-      localStorage.setItem("productsInCart", JSON.stringify(returnTarget));
+      if (cartItems) {
+        let returnTarget = Object.assign(cartItems, addInfoProduct);
+        localStorage.setItem("productsInCart", JSON.stringify(returnTarget));
+      } else {
+        let returnTarget = addInfoProduct;
+        localStorage.setItem("productsInCart", JSON.stringify(returnTarget));
+      }
     }
+
+    let productNumbers = localStorage.getItem("cartNumbers");
+
+    if (productNumbers) {
+      productNumbers = JSON.parse(productNumbers);
+      localStorage.setItem(
+        "cartNumbers",
+        JSON.stringify(inputCurrentProduct.valueAsNumber + productNumbers)
+      );
+    } else {
+      localStorage.setItem(
+        "cartNumbers",
+        JSON.stringify(inputCurrentProduct.valueAsNumber)
+      );
+    }
+
+    let cartCost = localStorage.getItem("totalCost");
+
+    if (cartCost) {
+      localStorage.setItem(
+        "totalCost",
+        JSON.stringify(
+          parseInt(currentPriceNumberValue) *
+            inputCurrentProduct.valueAsNumber +
+            parseInt(cartCost)
+        )
+      );
+    } else {
+      localStorage.setItem(
+        "totalCost",
+        JSON.stringify(
+          parseInt(currentPriceNumberValue) * inputCurrentProduct.valueAsNumber
+        )
+      );
+    }
+    location.reload();
+  });
+
+  yellowColourBtn.addEventListener("click", () => {
+    let currentProductInCart = localStorage.getItem("currentProduct");
+    currentProductInCart = JSON.parse(currentProductInCart);
+    console.log(currentProductInCart.color);
+
+    currentProductInCart.color = "yellow";
+
+    currentProductInCart = localStorage.setItem(
+      "currentProduct",
+      JSON.stringify(currentProductInCart)
+    );
+  });
+
+  blackColourBtn.addEventListener("click", () => {
+    let currentProductInCart = localStorage.getItem("currentProduct");
+    currentProductInCart = JSON.parse(currentProductInCart);
+
+    currentProductInCart.color = "black";
+
+    currentProductInCart = localStorage.setItem(
+      "currentProduct",
+      JSON.stringify(currentProductInCart)
+    );
   });
 }
 

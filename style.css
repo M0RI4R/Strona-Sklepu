@@ -927,14 +927,15 @@ footer {
 }
 .decrease-btn,
 .increase-btn,
-.increase-btn-current-item,
-.decrease-btn-current-item {
+.increase-btn-current-product,
+.decrease-btn-current-product {
   width: 30px;
   height: 30px;
   background-color: var(--checkbox-select-background);
   border: none;
 }
-.quantity-input {
+.quantity-input,
+.quantity-input-current-product {
   border: none;
   width: 60px;
   height: 30px;
