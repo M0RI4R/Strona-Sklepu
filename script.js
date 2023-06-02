@@ -57,8 +57,8 @@ const generateShop = (items) => {
               <img
                 alt="aparat"
                 src="${items[i].img}"
-                width="283px"
-                height="169px"
+                width="284px"
+                height="240px"
               />
               <h3>${items[i].name}</h3>
               <p class="price">$ ${items[i].price}</p>
@@ -160,10 +160,13 @@ const generateCurrentItemInfo = () => {
   product = JSON.parse(product);
 
   if (currentItemConteiner) {
-    currentItemConteiner.innerHTML = `<div class="product-grid-left">
-          <img src="${product.img}" />
-          <img src="./images/Frame 29 (1).svg" />
-          <img src="./images/Frame 29 (1).svg" />
+    currentItemConteiner.innerHTML = `
+   
+    <div class="product-grid-left">    
+         <span> <img class="main-img" src="${product.img}"  /> </span>
+         <span> <img class="small-img" src="${product.img2}" /> </span>
+         <span> <img class="small-img" src="${product.img3}" /> </span>
+         <span> <img class="small-img" src="${product.img}" /> </span>
         </div>
         <div class="product-description">
           <ul>
@@ -713,6 +716,17 @@ function addCurrentWatchingItem() {
       "currentProduct",
       JSON.stringify(currentProductInCart)
     );
+  });
+}
+
+//-------------------------CHANGE-MAIN-IMG-ON-CURRENT-PRODUCT-PAGE-----------------
+
+const mainImg = document.querySelector(".main-img");
+const smallImg = document.querySelectorAll(".small-img");
+
+for (let i = 0; i < smallImg.length; i++) {
+  smallImg[i].addEventListener("click", () => {
+    mainImg.setAttribute("src", smallImg[i].src);
   });
 }
 
